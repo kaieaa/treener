@@ -1,6 +1,6 @@
 # treener
 
-Rakendus on loodud eratreenerite ja terapeutide igapäeva töö lihtsustamiseks. Rakendus võimaldab harjutuste ja klientide info salvestamist, muutmist ja kasutamist ning peaks olema kättesaadav nii veebis kui ka mobiilirakendusena. Rakendus on mõeldud universaalseks kasutamiseks erinevate spordi- ja erialade treeneritele ning võimaldab andmeid sisestada paindlikult, nii nagu kirjutaks käsitsi paberile ja märkmikusse, kuid lihtsustab andmete organiseerimist ja järjestamist selliselt, nagu pabermärkmik seda ei võimalda.
+Rakendus on loodud eratreenerite ja terapeutide igapäevatöö lihtsustamiseks. Rakendus võimaldab harjutuste ja klientide info salvestamist, muutmist ja kasutamist ning peaks olema kättesaadav nii veebis kui ka mobiilirakendusena. Rakendus on mõeldud universaalseks kasutamiseks erinevate spordi- ja erialade treeneritele ning võimaldab andmeid sisestada paindlikult, nii nagu kirjutaks käsitsi paberile ja märkmikusse, kuid lihtsustab andmete organiseerimist ja järjestamist selliselt, nagu pabermärkmik seda ei võimalda.
 
 Rakenduse põhifunktsionaalsus:
 
@@ -9,5 +9,5 @@ Rakenduse põhifunktsionaalsus:
 - Klientide ja/või õpilaste (edaspidi klientide) andmete salvestamine andmebaasi
 - Klientide andmete vaatamine ja muutmine
 - Klientide treeningute lisamine
-- Salvestatud arjutuste sidumine konkreetse kliendi ja/või treeninguga
-- Märkmete lisamine 
+- Salvestatud harjutuste sidumine konkreetse kliendi ja treeninguga
+- Märkmete lisamine kliendi treeningule 
