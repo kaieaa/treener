@@ -1,47 +1,47 @@
-const lecturersService = require('../services/lecturersService');
-const lectrurersService = require('../services/lecturersService');
+const studentsService = require('../services/studentsService');
+const studentsService = require('../services/studentsService');
 
-const lecturersController = {};
+const studentsController = {};
 
-// Endpoint for getting list of available lecturers
-// GET - lecturers
+// Endpoint for getting list of available students
+// GET - students
 // Required values: none
 // Optional values: none
-// Returns: status 200 - OK and list of lecturers in response body
-lecturersController.read = (req, res) => {
-  // Get list of lecturers
-  const lecturers = lectrurersService.read();
-  // Return list of lecturers
+// Returns: status 200 - OK and list of students in response body
+studentsController.read = (req, res) => {
+  // Get list of students
+  const students = studentsService.read();
+  // Return list of students
   res.status(200).json({
       success: true,
-      lecturers
+      students
   });
 };
 
-// Endpoint for getting lecturer specified by id
-// GET - lecturers
+// Endpoint for getting student specified by id
+// GET - students
 // Required: id
 // Optional: none
-// Returns: status 200 - OK and lecturer data in response body
-lecturersController.readById = (req, res) => {
+// Returns: status 200 - OK and student data in response body
+studentsController.readById = (req, res) => {
   const id = req.params.id;
-  // Get lecturer from service
-  const lecturer = lecturersService.readById(id);
-  // Return lecturer
+  // Get student from service
+  const student = studentsService.readById(id);
+  // Return student
   res.status(200).json({
       success: true,
-      lecturer
+      student
   });
 };
 
-// Endpoint for creating new lecturer
-// POST - lecturers
+// Endpoint for creating new student
+// POST - students
 // Required values: firstName, lastName, email
 // Optional values: none
 // Returns:
-//  Success: status 201 - Created and lecturer data in response body
+//  Success: status 201 - Created and student data in response body
 //  Fail: status 400 - Bad Request and error message in response body
-lecturersController.create =(req, res) => {
+studentsController.create =(req, res) => {
   // Check if provided data is expected type (typeof) and has length when whitespace is removed (.trim().length)
   const firstName = typeof(req.body.firstName) === 'string' && req.body.firstName.trim().length > 0 ? req.body.firstName : false;
   const lastName = typeof(req.body.lastName) === 'string' && req.body.lastName.trim().length > 0 ? req.body.lastName : false;
@@ -51,18 +51,18 @@ lecturersController.create =(req, res) => {
   // Check if required data exists
   if (firstName && lastName && email && (userId || userId === 0)) {
       // Create new json with user data
-      const newLecturer = {
+      const newstudent = {
           firstName,
           lastName,
           email,
           userId
       };
       
-      const lecturer = lectrurersService.create(newLecturer);
+      const student = studentsService.create(newstudent);
       // Return data
       res.status(201).json({
           success: true,
-          lecturer
+          student
       });
   } else {
       // Return error message
@@ -73,14 +73,14 @@ lecturersController.create =(req, res) => {
   }
 };
 
-// Endpoint for updating lecturer specified by id
-// PUT - lecturers
+// Endpoint for updating student specified by id
+// PUT - students
 // Required: id
 // Optional: firstName, lastName, email
 // Returns:
-//  Success: status 200 - OK and lecturer data in response body
+//  Success: status 200 - OK and student data in response body
 //  Fail: status 400 - Bad Request and error message in response body
-lecturersController.update = (req, res) => {
+studentsController.update = (req, res) => {
   // Next lines checking if provided data is expected type (typeof) and has length when whitespace is removed (.trim().length)
   const id = typeof(req.body.id) === 'number' ? req.body.id : false;
   const firstName = typeof(req.body.firstName) === 'string' && req.body.firstName.trim().length > 0 ? req.body.firstName : false;
@@ -91,22 +91,22 @@ lecturersController.update = (req, res) => {
       // Check if optional data exists
       if (firstName) {
           // Change user data in 'database'
-          lecturers[id].firstName = firstName;
+          students[id].firstName = firstName;
       }
       // Check if optional data exists
       if (lastName) {
           // Change user data in 'database'
-          lecturers[id].lastName = lastName;
+          students[id].lastName = lastName;
       }
       // Check if optional data exists
       if (email) {
           // Change user data in 'database'
-          lecturers[id].email = email;
+          students[id].email = email;
       }
       // Return updated user data
       res.status(200).json({
           success: true,
-          lecturer: lecturers[id]
+          student: students[id]
       });
   } else {
       // Return error message
@@ -117,18 +117,18 @@ lecturersController.update = (req, res) => {
   }
 };
 
-// Endpoint for deleting lecturer specified by id
-// DELETE - lecturers
+// Endpoint for deleting student specified by id
+// DELETE - students
 // Required: id
 // Optional: none
 // Returns:
 //  Success: status 200 - OK and { success: true } message
 //  Fail: status 400 - Bad Request and error message in response body
-lecturersController.delete = (req, res) => {
+studentsController.delete = (req, res) => {
   // Check if required data exists
   const id = typeof(req.body.id) === 'number' ? req.body.id : false;
   if(id || id === 0) {
-      const deleted = lectrurersService.delete(id);
+      const deleted = studentsService.delete(id);
       // Return success message
       res.status(200).json({
           success: true
@@ -142,4 +142,4 @@ lecturersController.delete = (req, res) => {
   }
 };
 
-module.exports = lecturersController;
+module.exports = studentsController;
