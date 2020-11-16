@@ -1,55 +1,55 @@
 // Database mockup
-const homeworks = [
+const studentExercises = [
     {
         id: 0,
         description: 'Esimene kodutöö',
         dueDate: Date.now(),
-        subjectId: 0,
-        userId: 0
+        exerciseId: 0,
+        studentId: 0
     },
     {
         id: 1,
         description: 'Teine kodutöö',
         dueDate: Date.now(),
-        subjectId: 0,
-        userId: 0
+        exerciseId: 0,
+        studentId: 0
     }
   ];
   
-  const homeworksService = {};
+  const studentExercisesService = {};
   
-  homeworksService.read = () => {
-    return homeworks;
+  studentExercisesService.read = () => {
+    return studentExercises;
   }
   
   
-  homeworksService.readById = (id) => {
-    return homeworks[id];
+  studentExercisesService.readById = (id) => {
+    return studentExercises[id];
   }
   
-  homeworksService.create = (homework) => {
-    homework.id = homeworks.length,
-    homeworks.push(homework);
-    return homework;
+  studentExercisesService.create = (studentExercise) => {
+    studentExercise.id = studentExercises.length,
+    studentExercises.push(studentExercise);
+    return studentExercise;
   }
   
-  homeworksService.update = (homework) => {
+  studentExercisesService.update = (studentExercise) => {
     // Check if optional data exists
-    if (homework.description) {
+    if (studentExercise.description) {
       // Change user data in 'database'
-      homeworks[homework.id].description = homework.description;
+      studentExercises[studentExercise.id].description = studentExercise.description;
     }
     // Check if optional data exists
-    if ((homework.subjectId || homework.subjectId === 0)) {
+    if ((studentExercise.exerciseId || studentExercise.exerciseId === 0)) {
       // Change user data in 'database'
-      homeworks[homework.id].subjectId = homework.subjectId;
+      studentExercises[studentExercise.id].exerciseId = studentExercise.exerciseId;
     }
-    return homeworks[homework.id];
+    return studentExercises[studentExercise.id];
   }
   
-  homeworksService.delete = (id) => {
-    homeworks.splice(id, 1);
+  studentExercisesService.delete = (id) => {
+    studentExercises.splice(id, 1);
     return true;
   }
   
-  module.exports = homeworksService;
+  module.exports = studentExercisesService;
