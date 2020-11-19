@@ -6,9 +6,10 @@ const app = express();
 // Import controllers
 const pingController = require('./api/controllers/pingController');
 const usersController = require('./api/controllers/usersController');
-const lecturersController = require('./api/controllers/lecturersController');
-const subjectsController = require('./api/controllers/subjectsController');
-const homeworksController = require('./api/controllers/homeworksController');
+const studentsController = require('./API/controllers/studentsController');
+const exercisesController = require('./API/controllers/exercisesController');
+const studentExercisesController = require('./api/controllers/studentExercisesController');
+const notesController = require('./API/controllers/notesController');
 
 // Middleware required for receiving body from request object as JSON
 app.use(express.json());
@@ -22,23 +23,29 @@ app.post('/api/users', usersController.create);
 app.put('/api/users', usersController.update);
 app.delete('/api/users', usersController.delete);
 
-app.get('/api/lecturers', lecturersController.read);
-app.get('/api/lecturers/:id', lecturersController.readById);
-app.post('/api/lecturers', lecturersController.create);
-app.put('/api/lecturers', lecturersController.update);
-app.delete('/api/lecturers', lecturersController.delete);
+app.get('/api/students', studentsController.read);
+app.get('/api/students/:id', studentsController.readById);
+app.post('/api/students', studentsController.create);
+app.put('/api/students', studentsController.update);
+app.delete('/api/students', studentsController.delete);
 
-app.get('/api/subjects', subjectsController.read);
-app.get('/api/subjects/:id', subjectsController.readById);
-app.post('/api/subjects', subjectsController.create);
-app.put('/api/subjects', subjectsController.update);
-app.delete('/api/subjects', subjectsController.delete);
+app.get('/api/exercises', exercisesController.read);
+app.get('/api/exercises/:id', exercisesController.readById);
+app.post('/api/exercises', exercisesController.create);
+app.put('/api/exercises', exercisesController.update);
+app.delete('/api/exercises', exercisesController.delete);
 
-app.get('/api/homeworks', homeworksController.read);
-app.get('/api/homeworks/:id', homeworksController.readById);
-app.post('/api/homeworks', homeworksController.create);
-app.put('/api/homeworks', homeworksController.update);
-app.delete('/api/homeworks', homeworksController.delete);
+app.get('/api/studentExercises', studentExercisesController.read);
+app.get('/api/studentExercises/:id', studentExercisesController.readById);
+app.post('/api/studentExercises', studentExercisesController.create);
+app.put('/api/studentExercises', studentExercisesController.update);
+app.delete('/api/studentExercises', studentExercisesController.delete);
+
+app.get('/api/notes', notesController.read);
+app.get('/api/notes/:id', notesController.readById);
+app.post('/api/notes', notesController.create);
+app.put('/api/notes', notesController.update);
+app.delete('/api/notes', notesController.delete);
 
 app.listen(3000, () => {
     console.log('Server running');
