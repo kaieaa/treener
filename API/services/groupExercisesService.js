@@ -33,9 +33,9 @@ const groupExercises = [
   
   groupExercisesService.update = (groupExercise) => {
     // Check if optional data exists
-    if (groupExercise.description) {
+    if (groupExercise.groupId) {
       // Change user data in 'database'
-      groupExercises[groupExercise.id].description = groupExercise.description;
+      groupExercises[groupExercise.id].groupId = groupExercise.groupId;
     }
     // Check if optional data exists
     if ((groupExercise.exerciseId || groupExercise.exerciseId === 0)) {
