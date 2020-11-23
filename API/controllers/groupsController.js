@@ -1,4 +1,4 @@
-const groupsExercisesService = require('../services/groupsExercisesService');
+const groupsExercisesService = require('../services/groupExercisesService');
 
 const groupsExercisesController = {};
 
@@ -33,25 +33,23 @@ groupsExercisesController.readById = (req, res) => {
 
 // Endpoint for creating new groupsExercise
 // POST - groupsExercises
-// Required values: description, dateAdded, exerciseId, userId
+// Required values: name, description, dateAdded
 // Optional values: none
 // Returns:
 //  Success: status 201 - Created and groupsExercise data in response body
 //  Fail: status 400 - Bad Request and error message in response body
 groupsExercisesController.create = (req, res) => {
   // Check if provided data is expected type (typeof) and has length when whitespace is removed (.trim().length)
+  const name = typeof(req.body.description) === 'string' && req.body.description.trim().length > 0 ? req.body.description : false;
   const description = typeof(req.body.description) === 'string' && req.body.description.trim().length > 0 ? req.body.description : false;
   const dateAdded = new Date();
-  const exerciseId = typeof(req.body.exerciseId) === 'number' ? req.body.exerciseId : false;
-  const userId = typeof(req.body.userId) === 'number' ? req.body.userId : false;
   // Check if required data exists
   if (description && dateAdded && (exerciseId || exerciseId === 0) && (userId || userId === 0)) {
       // Create new json with user data
       const newgroupsExercise = {
+          name,
           description,
           dateAdded,
-          exerciseId,
-          userId
       };
       const groupsExercise = groupsExercisesService.create(newgroupsExercise);
 
@@ -72,19 +70,18 @@ groupsExercisesController.create = (req, res) => {
 // Endpoint for updating groupsExercise specified by id
 // PUT - groupsExercises
 // Required: id
-// Optional: description, dateAdded, exerciseId
+// Optional: name, description, dateAdded
 // Returns:
 //  Success: status 200 - OK and subject data in response body
 //  Fail: status 400 - Bad Request and error message in response body
 groupsExercisesController.update = (req, res) => {
   // Next lines checking if provided data is expected type (typeof) and has length when whitespace is removed (.trim().length)
   const id = typeof(req.body.id) === 'number' ? req.body.id : false;
+  const name = typeof(req.body.description) === 'string' && req.body.description.trim().length > 0 ? req.body.description : false;
   const description = typeof(req.body.description) === 'string' && req.body.description.trim().length > 0 ? req.body.description : false;
-  const dateAdded = new Date();
-  const exerciseId = typeof(req.body.exerciseId) === 'number' ? req.body.exerciseId : false;
   // Check if required data exists
   if(id || id === 0) {
-      const groupsExercise = groupsExercisesService.update({ id, description, exerciseId });
+      const groupsExercise = groupsExercisesService.update({ id, name, description });
       // Return updated user data
       res.status(200).json({
           success: true,
