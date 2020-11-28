@@ -3,9 +3,6 @@ const express = require('express');
 // Create express object and put it into app constant
 const app = express();
 
-const config = require('./config');
-const port = config.port;
-
 // Import controllers
 const pingController = require('./api/controllers/pingController');
 const usersController = require('./api/controllers/usersController');

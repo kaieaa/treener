@@ -1,35 +1,26 @@
 const hashService = require('./hashService');
-
-const db = require('../../config');
-// const users = [
-//   {
-//       id: 0,
-//       firstName: 'Juku',
-//       lastName: 'Juurikas',
-//       email: 'juku@juurikas.ee',
-//       password: 'juku'
-//   },
-//   {
-//       id: 1,
-//       firstName: 'Juhan',
-//       lastName: 'Juurikas',
-//       email: 'juhan@juurikas.ee',
-//       password: 'juhan'
-//   }
-// ];
+const users = [
+  {
+      id: 0,
+      firstName: 'Juku',
+      lastName: 'Juurikas',
+      email: 'juku@juurikas.ee',
+      password: 'juku'
+  },
+  {
+      id: 1,
+      firstName: 'Juhan',
+      lastName: 'Juurikas',
+      email: 'juhan@juurikas.ee',
+      password: 'juhan'
+  }
+];
 
 usersService = {};
 
 // Return list of users
-usersService.read = async () => {
-  const usersRef = db.collection('users');
-  const snapshot = await usersRef.get();
-  const users = snapshot.docs
-  snapshot.forEach(doc => {
-    console.log(doc.id, '=>', doc.data());
-  });
-  console.log(snapshot.docs);
-  return;
+usersService.read = () => {
+  return users;
 }
 
 // Return user by id
@@ -39,23 +30,15 @@ usersService.readById = (userId) => {
 
 // Create user
 usersService.create = (user) => {
-  user.password = await hashService.hash(user.password);
+  user.id = users.length;
+  // user.password = hashService.hash(user.password);
   // Add user to 'database'
-  const res = await db.collection('users').doc(user.email).set(user);
-  console.log(res);
+  users.push(user);
+
   // Create new json from newUser for response
   const userToReturn = { ... user };
   // Remove password from user data
-  delete userToReturn.password;
-  // user.id = users.length;
-  // // user.password = hashService.hash(user.password);
-  // // Add user to 'database'
-  // users.push(user);
-
-  // // Create new json from newUser for response
-  // const userToReturn = { ... user };
-  // // Remove password from user data
-  // // delete userToReturn.password;
+  // delete userToReturn.password;
 
   return userToReturn;
 }
