@@ -21,8 +21,15 @@ const db = require('../../config');
 usersService = {};
 
 // Return list of users
-usersService.read = () => {
-  return users;
+usersService.read = async () => {
+  const usersRef = db.collection('users');
+  const snapshot = await usersRef.get();
+  const users = snapshot.docs
+  snapshot.forEach(doc => {
+    console.log(doc.id, '=>', doc.data());
+  });
+  console.log(snapshot.docs);
+  return;
 }
 
 // Return user by id
@@ -40,7 +47,6 @@ usersService.create = (user) => {
   const userToReturn = { ... user };
   // Remove password from user data
   delete userToReturn.password;
-
   // user.id = users.length;
   // // user.password = hashService.hash(user.password);
   // // Add user to 'database'
