@@ -32,7 +32,6 @@ usersService.readById = (userId) => {
 
 // Create user
 usersService.create = (user) => {
-
   user.password = await hashService.hash(user.password);
   // Add user to 'database'
   const res = await db.collection('users').doc(user.email).set(user);
@@ -40,7 +39,7 @@ usersService.create = (user) => {
   // Create new json from newUser for response
   const userToReturn = { ... user };
   // Remove password from user data
-  // delete userToReturn.password;
+  delete userToReturn.password;
 
   // user.id = users.length;
   // // user.password = hashService.hash(user.password);
