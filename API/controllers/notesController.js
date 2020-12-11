@@ -33,7 +33,7 @@ notesController.readById = (req, res) => {
 
 // Endpoint for creating new note
 // POST - notes
-// Required values: description, dueDate, exerciseId, userId
+// Required values: description, dateAdded, studentTrainingId, userId
 // Optional values: none
 // Returns:
 //  Success: status 201 - Created and note data in response body
@@ -41,16 +41,16 @@ notesController.readById = (req, res) => {
 notesController.create = (req, res) => {
   // Check if provided data is expected type (typeof) and has length when whitespace is removed (.trim().length)
   const description = typeof(req.body.description) === 'string' && req.body.description.trim().length > 0 ? req.body.description : false;
-  const dueDate = new Date();
-  const exerciseId = typeof(req.body.exerciseId) === 'number' ? req.body.exerciseId : false;
+  const dateAdded = new Date();
+  const studentTrainingId = typeof(req.body.studentTrainingId) === 'number' ? req.body.studentTrainingId : false;
   const userId = typeof(req.body.userId) === 'number' ? req.body.userId : false;
   // Check if required data exists
-  if (description && dueDate && (exerciseId || exerciseId === 0) && (userId || userId === 0)) {
+  if (description && dateAdded && (studentTrainingId || studentTrainingId === 0) && (userId || userId === 0)) {
       // Create new json with user data
       const newnote = {
           description,
-          dueDate,
-          exerciseId,
+          dateAdded,
+          studentTrainingId,
           userId
       };
       const note = notesService.create(newnote);
@@ -72,7 +72,7 @@ notesController.create = (req, res) => {
 // Endpoint for updating note specified by id
 // PUT - notes
 // Required: id
-// Optional: description, dueDate, exerciseId
+// Optional: description, dateAdded, studentTrainingId
 // Returns:
 //  Success: status 200 - OK and subject data in response body
 //  Fail: status 400 - Bad Request and error message in response body
@@ -80,11 +80,11 @@ notesController.update = (req, res) => {
   // Next lines checking if provided data is expected type (typeof) and has length when whitespace is removed (.trim().length)
   const id = typeof(req.body.id) === 'number' ? req.body.id : false;
   const description = typeof(req.body.description) === 'string' && req.body.description.trim().length > 0 ? req.body.description : false;
-  const dueDate = new Date();
-  const exerciseId = typeof(req.body.exerciseId) === 'number' ? req.body.exerciseId : false;
+  const dateAdded = new Date();
+  const studentTrainingId = typeof(req.body.studentTrainingId) === 'number' ? req.body.studentTrainingId : false;
   // Check if required data exists
   if(id || id === 0) {
-      const note = notesService.update({ id, description, exerciseId });
+      const note = notesService.update({ id, description, studentTrainingId });
       // Return updated user data
       res.status(200).json({
           success: true,

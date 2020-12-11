@@ -1,30 +1,30 @@
 {
-    "name": "treener",
-    "version": "1.0.0",
-    "description": "",
-    "main": "index.js",
-    "scripts": {
-      "test": "echo \"Error: no test specified\" && exit 1",
-      "start": "nodemon index.js"
-    },
-    "repository": {
-      "type": "git",
-      "url": "git+https://github.com/kaieaa/treener.git"
-    },
-    "keywords": [],
-    "author": "",
-    "license": "ISC",
-    "bugs": {
-      "url": "https://github.com/kaieaa/treener/issues"
-    },
-    "homepage": "https://github.com/kaieaa/treener#readme",
-    "dependencies": {
-      "bcrypt": "^5.0.0",
-      "express": "^4.17.1",
-      "jsonwebtoken": "^8.5.1",
-      "mysql2": "^2.2.5"
-    },
-    "devDependencies": {
-      "nodemon": "^2.0.5"
-    }
+  "name": "treener",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kaieaa/treener.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kaieaa/treener/issues"
+  },
+  "homepage": "https://github.com/kaieaa/treener#readme",
+  "dependencies": {
+    "bcrypt": "^5.0.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mysql2": "^2.2.5"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.6"
   }
+}

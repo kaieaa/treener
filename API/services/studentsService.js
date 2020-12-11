@@ -1,5 +1,5 @@
 // Database mockup
-const lecturers = [
+const students = [
     {
         id: 0,
         firstName: 'Kalle',
@@ -16,31 +16,31 @@ const lecturers = [
     },
   ];
   
-  const lecturersService = {
+  const studentsService = {
     read: () => {
-      return lecturers;
+      return students;
     },
     readById: (id) => {
-      return lecturers[id];
+      return students[id];
     },
-    create: (lecturer) => {
-      lecturer.id = lecturers.length,
-      // Add lecturer to 'database'
-      lecturers.push(lecturer);
+    create: (student) => {
+      student.id = students.length,
+      // Add student to 'database'
+      students.push(student);
   
-      const lecturerToReturn = { ... lecturer };
+      const studentToReturn = { ... student };
       delete password;
   
-      return lecturerToReturn;
+      return studentToReturn;
     },
     update: () => {
   
     },
     delete: (id) => {
-      lecturers.splice(id, 1);
+      students.splice(id, 1);
       return true;
     }
   };
   
   
-  module.exports = lecturersService;
+  module.exports = studentsService;

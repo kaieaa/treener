@@ -1,55 +1,55 @@
 // Database mockup
-const studentExercises = [
+const studentTrainings = [
     {
         id: 0,
         description: 'Esimene kodutöö',
-        dueDate: Date.now(),
+        dateAdded: Date.now(),
         exerciseId: 0,
         studentId: 0
     },
     {
         id: 1,
         description: 'Teine kodutöö',
-        dueDate: Date.now(),
+        dateAdded: Date.now(),
         exerciseId: 0,
         studentId: 0
     }
   ];
   
-  const studentExercisesService = {};
+  const studentTrainingsService = {};
   
-  studentExercisesService.read = () => {
-    return studentExercises;
+  studentTrainingsService.read = () => {
+    return studentTrainings;
   }
   
   
-  studentExercisesService.readById = (id) => {
-    return studentExercises[id];
+  studentTrainingsService.readById = (id) => {
+    return studentTrainings[id];
   }
   
-  studentExercisesService.create = (studentExercise) => {
-    studentExercise.id = studentExercises.length,
-    studentExercises.push(studentExercise);
-    return studentExercise;
+  studentTrainingsService.create = (studentTraining) => {
+    studentTraining.id = studentTrainings.length,
+    studentTrainings.push(studentTraining);
+    return studentTraining;
   }
   
-  studentExercisesService.update = (studentExercise) => {
+  studentTrainingsService.update = (studentTraining) => {
     // Check if optional data exists
-    if (studentExercise.description) {
+    if (studentTraining.description) {
       // Change user data in 'database'
-      studentExercises[studentExercise.id].description = studentExercise.description;
+      studentTrainings[studentTraining.id].description = studentTraining.description;
     }
     // Check if optional data exists
-    if ((studentExercise.exerciseId || studentExercise.exerciseId === 0)) {
+    if ((studentTraining.exerciseId || studentTraining.exerciseId === 0)) {
       // Change user data in 'database'
-      studentExercises[studentExercise.id].exerciseId = studentExercise.exerciseId;
+      studentTrainings[studentTraining.id].exerciseId = studentTraining.exerciseId;
     }
-    return studentExercises[studentExercise.id];
+    return studentTrainings[studentTraining.id];
   }
   
-  studentExercisesService.delete = (id) => {
-    studentExercises.splice(id, 1);
+  studentTrainingsService.delete = (id) => {
+    studentTrainings.splice(id, 1);
     return true;
   }
   
-  module.exports = studentExercisesService;
+  module.exports = studentTrainingsService;

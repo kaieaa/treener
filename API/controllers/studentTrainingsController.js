@@ -1,64 +1,64 @@
-const homeworksService = require('../services/homeworksService');
+const studentTrainingsService = require('../services/studentTrainingsService');
 
-const homeworksController = {};
+const studentTrainingsController = {};
 
-// Endpoint for getting list of available homeworks
-// GET - homeworks
+// Endpoint for getting list of available studentTrainings
+// GET - studentTrainings
 // Required values: none
 // Optional values: none
-// Returns: status 200 - OK and list of homeworks in response body
-homeworksController.read = (req, res) => {
-  const homeworks = homeworksService.read();
-  // Return list of homeworks
+// Returns: status 200 - OK and list of studentTrainings in response body
+studentTrainingsController.read = (req, res) => {
+  const studentTrainings = studentTrainingsService.read();
+  // Return list of studentTrainings
   res.status(200).json({
       success: true,
-      homeworks
+      studentTrainings
   });
 }
 
-// Endpoint for getting homework specified by id
-// GET - homeworks
+// Endpoint for getting studentTraining specified by id
+// GET - studentTrainings
 // Required: id
 // Optional: none
-// Returns: status 200 - OK and homework data in response body
-homeworksController.readById = (req, res) => {
+// Returns: status 200 - OK and studentTraining data in response body
+studentTrainingsController.readById = (req, res) => {
   const id = req.params.id;
-  const homework = homeworksService.readById(id);
-  // Return homework with specified id
+  const studentTraining = studentTrainingsService.readById(id);
+  // Return studentTraining with specified id
   res.status(200).json({
       success: true,
-      homework
+      studentTraining
   });
 }
 
-// Endpoint for creating new homework
-// POST - homeworks
-// Required values: description, dueDate, subjectId, userId
+// Endpoint for creating new studentTraining
+// POST - studentTrainings
+// Required values: description, dateAdded, exerciseId, userId
 // Optional values: none
 // Returns:
-//  Success: status 201 - Created and homework data in response body
+//  Success: status 201 - Created and studentTraining data in response body
 //  Fail: status 400 - Bad Request and error message in response body
-homeworksController.create = (req, res) => {
+studentTrainingsController.create = (req, res) => {
   // Check if provided data is expected type (typeof) and has length when whitespace is removed (.trim().length)
   const description = typeof(req.body.description) === 'string' && req.body.description.trim().length > 0 ? req.body.description : false;
-  const dueDate = new Date();
-  const subjectId = typeof(req.body.subjectId) === 'number' ? req.body.subjectId : false;
+  const dateAdded = new Date();
+  const exerciseId = typeof(req.body.exerciseId) === 'number' ? req.body.exerciseId : false;
   const userId = typeof(req.body.userId) === 'number' ? req.body.userId : false;
   // Check if required data exists
-  if (description && dueDate && (subjectId || subjectId === 0) && (userId || userId === 0)) {
+  if (description && dateAdded && (exerciseId || exerciseId === 0) && (userId || userId === 0)) {
       // Create new json with user data
-      const newHomework = {
+      const newstudentTraining = {
           description,
-          dueDate,
-          subjectId,
+          dateAdded,
+          exerciseId,
           userId
       };
-      const homework = homeworksService.create(newHomework);
+      const studentTraining = studentTrainingsService.create(newstudentTraining);
 
       // Return data
       res.status(201).json({
           success: true,
-          homework
+          studentTraining
       });
   } else {
       // Return error message
@@ -69,26 +69,26 @@ homeworksController.create = (req, res) => {
   }
 }
 
-// Endpoint for updating homework specified by id
-// PUT - homeworks
+// Endpoint for updating studentTraining specified by id
+// PUT - studentTrainings
 // Required: id
-// Optional: description, dueDate, subjectId
+// Optional: description, dateAdded, exerciseId
 // Returns:
 //  Success: status 200 - OK and subject data in response body
 //  Fail: status 400 - Bad Request and error message in response body
-homeworksController.update = (req, res) => {
+studentTrainingsController.update = (req, res) => {
   // Next lines checking if provided data is expected type (typeof) and has length when whitespace is removed (.trim().length)
   const id = typeof(req.body.id) === 'number' ? req.body.id : false;
   const description = typeof(req.body.description) === 'string' && req.body.description.trim().length > 0 ? req.body.description : false;
-  const dueDate = new Date();
-  const subjectId = typeof(req.body.subjectId) === 'number' ? req.body.subjectId : false;
+  const dateAdded = new Date();
+  const exerciseId = typeof(req.body.exerciseId) === 'number' ? req.body.exerciseId : false;
   // Check if required data exists
   if(id || id === 0) {
-      const homework = homeworksService.update({ id, description, subjectId });
+      const studentTraining = studentTrainingsService.update({ id, description, exerciseId });
       // Return updated user data
       res.status(200).json({
           success: true,
-          homework
+          studentTraining
       });
   } else {
       // Return error message
@@ -99,18 +99,18 @@ homeworksController.update = (req, res) => {
   }
 }
 
-// Endpoint for deleting homework specified by id
-// DELETE - homeworks
+// Endpoint for deleting studentTraining specified by id
+// DELETE - studentTrainings
 // Required: id
 // Optional: none
 // Returns:
 //  Success: status 200 - OK and { success: true } message
 //  Fail: status 400 - Bad Request and error message in response body
-homeworksController.delete = (req, res) => {
+studentTrainingsController.delete = (req, res) => {
   // Check if required data exists
   const id = typeof(req.body.id) === 'number' ? req.body.id : false;
   if(id || id === 0) {
-      const deleted = homeworksService.delete(id);
+      const deleted = studentTrainingsService.delete(id);
       // Return success message
       res.status(200).json({
           success: deleted
@@ -124,4 +124,4 @@ homeworksController.delete = (req, res) => {
   }
 }
 
-module.exports = homeworksController;
+module.exports = studentTrainingsController;

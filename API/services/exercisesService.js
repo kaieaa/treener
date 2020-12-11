@@ -2,7 +2,7 @@
 const exercises = [
     {
         id: 0,
-        name: 'Riistvara ja operatsioonisüsteemide alused',
+        name: '',
         lecturerId: 0,
         userId: 0
     },
