@@ -3,18 +3,21 @@ const express = require('express');
 // Create express object and put it into app constant
 const app = express();
 
+const config = require('./config');
+const port = config.port;
+
+
 // Import controllers
 const pingController = require('./api/controllers/pingController');
 const usersController = require('./api/controllers/usersController');
-const studentsController = require('./API/controllers/studentsController');
-const exercisesController = require('./API/controllers/exercisesController');
-const groupsController = require('.API/controllers/groupsController');
-const groupExercisesController = require('.API/controllers/groupExercisesController');
-const studentTrainingsController = require('./API/controllers/studentTrainingsController');
-const studentTrainingExercisesController = require('./API/controllers/studentTrainingExercisesController');
-const notesController = require('./API/controllers/notesController');
+const studentsController = require('./api/controllers/studentsController');
+const exercisesController = require('./api/controllers/exercisesController');
+const groupExercisesController = require('.api/controllers/groupExercisesController');
+const studentTrainingsController = require('./api/controllers/studentTrainingsController');
+const studentTrainingExercisesController = require('./api/controllers/studentTrainingExercisesController');
+const notesController = require('./api/controllers/notesController');
 
-// Middleware required for receiving body from request object as JSON
+// Middleware required for receiving body from request object as JSON.
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
@@ -37,12 +40,6 @@ app.get('/api/exercises/:id', exercisesController.readById);
 app.post('/api/exercises', exercisesController.create);
 app.put('/api/exercises', exercisesController.update);
 app.delete('/api/exercises', exercisesController.delete);
-
-app.get('/api/groups', groupsController.read);
-app.get('/api/groups/:id', groupsController.readById);
-app.post('/api/groups', groupsController.create);
-app.put('/api/groups', groupsController.update);
-app.delete('/api/groups', groupsController.delete);
 
 app.get('/api/groupExercises', groupExercisesController.read);
 app.get('/api/groupExercises/:id', groupExercisesController.readById);

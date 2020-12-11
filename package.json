@@ -1,7 +1,7 @@
 {
   "name": "treener",
   "version": "1.0.0",
-  "description": "",
+  "description": "Rakendus on loodud eratreenerite ja terapeutide igapäevatöö lihtsustamiseks. Rakendus võimaldab harjutuste ja klientide info salvestamist, muutmist ja kasutamist ning peaks olema kättesaadav nii veebis kui ka mobiilirakendusena. Rakendus on mõeldud universaalseks kasutamiseks erinevate spordi- ja erialade treeneritele ning võimaldab andmeid sisestada paindlikult, nii nagu kirjutaks käsitsi paberile ja märkmikusse, kuid lihtsustab andmete organiseerimist ja järjestamist selliselt, nagu pabermärkmik seda ei võimalda.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
