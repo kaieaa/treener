@@ -1,5 +1,4 @@
 const studentsService = require('../services/studentsService');
-const studentsService = require('../services/studentsService');
 
 const studentsController = {};
 
