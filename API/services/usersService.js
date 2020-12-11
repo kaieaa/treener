@@ -1,25 +1,10 @@
 const hashService = require('./hashService');
-const users = [
-  {
-      id: 0,
-      firstName: 'Juku',
-      lastName: 'Juurikas',
-      email: 'juku@juurikas.ee',
-      password: 'juku'
-  },
-  {
-      id: 1,
-      firstName: 'Juhan',
-      lastName: 'Juurikas',
-      email: 'juhan@juurikas.ee',
-      password: 'juhan'
-  }
-];
+const db = require('../../db');
 
 usersService = {};
 
-// Return list of users
-usersService.read = () => {
+usersService.read = async () => {
+  const users = await db.query(`SELECT id, firstName, lastName, email FROM users`);
   return users;
 }
 
