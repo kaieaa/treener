@@ -10,7 +10,8 @@ usersService.read = async () => {
 }
 
 // Return user by id
-usersService.readById = (userId) => {
+usersService.readById = async (userId) => {
+  const users = await db.query(`SELECT * FROM users WHERE id = userId`);
   return users[userId];
 }
 
