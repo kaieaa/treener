@@ -10,9 +10,9 @@ usersService.read = async () => {
 }
 
 // Return user by id
-usersService.readById = async (userId) => {
-  const users = await db.query(`SELECT * FROM users WHERE id = userId`);
-  return users[userId];
+usersService.readById = async (id) => {
+  const users = await db.query(`SELECT id, firstName, lastName, email FROM users WHERE id = ?`, [id]);
+  return users[0];
 }
 
 // Create user
