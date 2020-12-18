@@ -11,6 +11,7 @@
     user: dbConfig.user,
     password: dbConfig.password,
     database: dbConfig.database
+    //port: 3306
 };
 // Loome ühenduse andmebaasiga
 const connection = mysql.createConnection(config);
