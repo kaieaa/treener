@@ -5,6 +5,7 @@ usersService = {};
 
 usersService.read = async () => {
   const users = await db.query(`SELECT id, firstName, lastName, email FROM users`);
+  console.log(users);
   return users;
 }
 
