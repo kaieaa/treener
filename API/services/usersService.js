@@ -16,49 +16,51 @@ usersService.readById = async (id) => {
 }
 
 // Create user
-usersService.create = (user) => {
-  user.id = users.length;
-  // user.password = hashService.hash(user.password);
+usersService.create = async (user) => {
+  user.password = await hashService.hash(user.password);
   // Add user to 'database'
-  users.push(user);
-
-  // Create new json from newUser for response
-  const userToReturn = { ... user };
-  // Remove password from user data
-  // delete userToReturn.password;
-
-  return userToReturn;
+  const result = await db.query(`INSERT INTO users SET ?`, [user]);
+  if (result.affectedRows === 0) {
+    return false;
+  }
+  return result.insertId;
 }
 
-usersService.update = (user) => {
+usersService.update = async (user) => {
+  const userToUpdate = usersService.readById(user.id);
     // Check if optional data exists
     if (user.firstName) {
         // Change user data in 'database'
-        users[user.id].firstName = user.firstName;
+        userToUpdate.firstName = user.firstName;
     }
     // Check if optional data exists
     if (user.lastName) {
         // Change user data in 'database'
-        users[user.id].lastName = user.lastName;
+        userToUpdate.lastName = user.lastName;
     }
     // Check if optional data exists
     if (user.email) {
         // Change user data in 'database'
-        users[user.id].email = user.email;
+        userToUpdate.email = user.email;
     }
     // Check if optional data exists
     if (user.password) {
         // Change user data in 'database'
-        users[user.id].password = user.password;
+        userToUpdate.password = hashService.hash(user.password);
     }
-
-    const updatedUser = { ... users[user.id]};
-    delete updatedUser.password;
-    return updatedUser;
+    
+    const result = await db.query(`UPDATE users SET ? WHERE id = ?`, [userToUpdate, user.id]);
+    if (result.affectedRows === 0) {
+      return false;
+    }
+    return true;
 }
 
-usersService.delete = (id) => {
-  users.splice(id, 1);
+usersService.delete = async (id) => {
+  const result = await db.query(`DELETE FROM users WHERE id = ?`, [id]);
+  if (result.affectedRows === 0) {
+    return false;
+  }
   return true;
 }
 
