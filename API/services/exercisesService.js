@@ -1,9 +1,16 @@
 const db = require('../../db');
 const exercisesService = {};
 
-exercisesService.read = async (users_id) => {
+/*exercisesService.read = async (users_id) => {
   if (!users_id) return false;
   const exercises = await db.query(`SELECT id FROM exercises WHERE users_id = ?`, [users_id]);
+  return exercises;
+}
+*/
+
+exercisesService.read = async () => {
+  const exercises = await db.query(`SELECT id FROM exercises`);
+  console.log(exercises);
   return exercises;
 }
 
