@@ -56,23 +56,39 @@ exercisesController.readById = async (req, res) => {
 
 // Endpoint for creating new exercise
 // POST - exercises
-// Required values: name, lecturerId, userId
-// Optional values: none
+// Required values: name, userId
+// Optional values: desc, defaultSeries, defaultReps, defaultRepsType, defaultEquip, defaultWeight,
+// video1, video2, comment,
 // Returns:
-//  Success: status 201 - Created and lecturer data in response body
+//  Success: status 201 - Created and exercise data in response body
 //  Fail: status 400 - Bad Request and error message in response body
 exercisesController.create = async (req, res) => {
   // Check if provided data is expected type (typeof) and has length when whitespace is removed (.trim().length)
   const name = typeof(req.body.name) === 'string' && req.body.name.trim().length > 0 ? req.body.name : false;
-  const lecturerId = typeof(req.body.lecturerId) === 'number' ? req.body.lecturerId : false;
+  const desc = typeof(req.body.desc) === 'string' && req.body.desc.trim().length > 0 ? req.body.desc : false;
+  const defaultSeries = typeof(req.body.defaultSeries) === 'number' ? req.body.defaultSeries : false;
+  const defaultReps = typeof(req.body.defaultReps) === 'number' ? req.body.defaultReps : false;
+  const defaultRepsType = typeof(req.body.defaultRepsType) === 'string' && req.body.defaultRepsType.trim().length > 0 ? req.body.defaultRepsType : false;
+  const defaultEquip = typeof(req.body.defaultEquip) === 'string' && req.body.defaultEquip.trim().length > 0 ? req.body.defaultEquip : false;
+  const defaultWeight = typeof(req.body.defaultWeight) === 'number' ? req.body.defaultWeight : false;
+  const video1 = typeof(req.body.video1) === 'string' && req.body.video1.trim().length > 0 ? req.body.video1 : false;
+  const video2 = typeof(req.body.video2) === 'string' && req.body.video2.trim().length > 0 ? req.body.video2 : false;
+  const comment = typeof(req.body.comment) === 'string' && req.body.comment.trim().length > 0 ? req.body.comment : false;
   const userId = req.user;
-
   // Check if required data exists
-  if (name && lecturerId && userId) {
+  if (name && userId) {
       // Create new json with user data
       const exercise = {
           name,
-          lecturers_id: lecturerId,
+          desc: desc,
+          defaultSeries: defaultSeries,
+          defaultReps: defaultReps,
+          defaultRepsType: defaultRepsType,
+          defaultEquip: defaultEquip,
+          defaultWeight: defaultWeight,
+          video1: video1,
+          video2: video2,
+          comment: comment,
           users_id: userId
       };
       const id = await exercisesService.create(exercise);
@@ -85,7 +101,7 @@ exercisesController.create = async (req, res) => {
       } else {
         res.status(500).json({
             success: false,
-            message: 'Something went wrong while creating new user'
+            message: 'Something went wrong while creating new exercise'
         });
       }
   } else {
@@ -115,7 +131,15 @@ exercisesController.update = async (req, res) => {
       const exercise = {
           id,
           name,
-          lecturers_id: lecturerId,
+          desc: desc,
+          defaultSeries: defaultSeries,
+          defaultReps: defaultReps,
+          defaultRepsType: defaultRepsType,
+          defaultEquip: defaultEquip,
+          defaultWeight: defaultWeight,
+          video1: video1,
+          video2: video2,
+          comment: comment,
           users_id: userId
       };
       const result = await exercisesService.update(exercise);
@@ -127,7 +151,7 @@ exercisesController.update = async (req, res) => {
       } else {
         res.status(400).json({
             success: false,
-            message: 'exercise does not exists.'
+            message: 'Exercise does not exists.'
         });
       }
 
