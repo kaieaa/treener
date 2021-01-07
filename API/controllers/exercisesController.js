@@ -3,11 +3,13 @@ const exercisesController = {};
 
 // Endpoint for getting list of available exercises
 // GET - exercises
-// Required values: none
+// Required values: userId
 // Optional values: none
 // Returns: status 200 - OK and list of exercises in response body
 exercisesController.read = async (req, res) => {
   const userId = req.user;
+  console.log(userId)
+  //const userId = typeof(parseInt(req.params.userId)) === 'number' ? parseInt(req.params.userId) : false;
   if (userId) {
     // Get list of exercises
     const exercises = await exercisesService.read(userId);
@@ -22,6 +24,16 @@ exercisesController.read = async (req, res) => {
   });
   }
 }
+
+/*exercisesController.read = async (req, res) => {
+    //const userId = 2;
+    const exercises = await exercisesService.read(userId);
+    // Return list of users
+    res.status(200).json({
+        success: true,
+        exercises: exercises
+    });
+}*/
 
 // Endpoint for getting exercise specified by id
 // GET - exercises
@@ -79,7 +91,7 @@ exercisesController.create = async (req, res) => {
   if (name && userId) {
       // Create new json with user data
       const exercise = {
-          name,
+          name: name,
           desc: desc,
           defaultSeries: defaultSeries,
           defaultReps: defaultReps,

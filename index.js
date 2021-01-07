@@ -6,22 +6,28 @@ const app = express();
 const config = require('./config');
 const port = config.port;
 
-
 // Import controllers
 const pingController = require('./api/controllers/pingController');
 const usersController = require('./api/controllers/usersController');
 const studentsController = require('./api/controllers/studentsController');
 const exercisesController = require('./api/controllers/exercisesController');
-const groupExercisesController = require('./api/controllers/groupExercisesController');
-const studentTrainingsController = require('./api/controllers/studentTrainingsController');
-const studentTrainingExercisesController = require('./api/controllers/studentTrainingExercisesController');
-const notesController = require('./api/controllers/notesController');
+const authController = require('./api/controllers/authController');
+
+// Import logger middleware
+const logger = require('./api/middlewares/logger');
+const isLoggedIn = require('./api/middlewares/isLoggedIn');
+app.use(logger);
 
 // Middleware required for receiving body from request object as JSON.
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
+// Routes
 app.get('/api/ping', pingController.ping);
+app.post('/api/login', authController.login);
+app.post('/api/users', usersController.create);
+
+app.use(isLoggedIn);
 
 app.get('/api/users', usersController.read);
 app.get('/api/users/:id', usersController.readById);
@@ -40,30 +46,6 @@ app.get('/api/exercises/:id', exercisesController.readById);
 app.post('/api/exercises', exercisesController.create);
 app.put('/api/exercises', exercisesController.update);
 app.delete('/api/exercises', exercisesController.delete);
-
-app.get('/api/groupExercises', groupExercisesController.read);
-app.get('/api/groupExercises/:id', groupExercisesController.readById);
-app.post('/api/groupExercises', groupExercisesController.create);
-app.put('/api/groupExercises', groupExercisesController.update);
-app.delete('/api/groupExercises', groupExercisesController.delete);
-
-app.get('/api/studentTrainings', studentTrainingsController.read);
-app.get('/api/studentTrainings/:id', studentTrainingsController.readById);
-app.post('/api/studentTrainings', studentTrainingsController.create);
-app.put('/api/studentTrainings', studentTrainingsController.update);
-app.delete('/api/studentTrainings', studentTrainingsController.delete);
-
-app.get('/api/studentTrainingExercises', studentTrainingExercisesController.read);
-app.get('/api/studentTrainingExercises/:id', studentTrainingExercisesController.readById);
-app.post('/api/studentTrainingExercises', studentTrainingExercisesController.create);
-app.put('/api/studentTrainingExercises', studentTrainingExercisesController.update);
-app.delete('/api/studentTrainingExercises', studentTrainingExercisesController.delete);
-
-app.get('/api/notes', notesController.read);
-app.get('/api/notes/:id', notesController.readById);
-app.post('/api/notes', notesController.create);
-app.put('/api/notes', notesController.update);
-app.delete('/api/notes', notesController.delete);
 
 app.listen(3000, () => {
     console.log('Server running');
