@@ -13,6 +13,7 @@ const isLoggedIn = async (req, res, next) => {
         message: 'Invalid or missing token'
       });
     }
+    
   } catch (error) {
     console.error(error);
     res.status(401).json({
