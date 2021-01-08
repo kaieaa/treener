@@ -41,7 +41,7 @@ usersController.readById = async (req, res) => {
 // Endpoint for creating new user
 // POST - users
 // Required values: firstName, lastName, email, password
-// Optionalvalues: none
+// Optional values: none
 // Returns:
 //  Success: status 201 - Created and user data in response body
 //  Fail: status 400 - Bad Request and error message in response body
@@ -85,17 +85,7 @@ usersController.create = async (req, res) => {
 //  Success: status 200 - OK and user data in response body
 //  Fail: status 400 - Bad Request and error message in response body
 usersController.update = async (req, res) => {
-    // Next lines checking if provided data is expected type (typeof) and has length when whitespace is removed (.trim().length)
-    // Ternary operator: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_Operator
     const id = typeof(req.body.id) === 'number' ? req.body.id : false;
-    /* Same as:
-    let id;
-     if (typeof(req.body.id) === 'number') {
-        id = req.body.id
-     } else {
-         id = false;
-     }
-     */
     // Check if required data exists
     if(id || id === 0) {
         const firstName = typeof(req.body.firstName) === 'string' && req.body.firstName.trim().length > 0 ? req.body.firstName : false;

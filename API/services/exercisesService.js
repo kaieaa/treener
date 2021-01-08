@@ -2,15 +2,14 @@ const db = require('../../db');
 const exercisesService = {};
 
 exercisesService.read = async (users_id) => {
-  //const users_id = 2;
   if (!users_id) return false;
   const exercises = await db.query(`SELECT * FROM exercises WHERE users_id = ?`, [users_id]);
   return exercises;
 }
 
 exercisesService.readById = async (id, users_id) => {
-  const exercises = await db.query(`SELECT name FROM exercises WHERE id = ? AND users_id = ?`, [id, users_id]);
-  if (exercises.length < 1 || exercises[0].users_id !== users_id) return false;
+  const exercises = await db.query(`SELECT * FROM exercises WHERE id = ? AND users_id = ?`, [id, users_id]);
+  //if (exercises.length < 1 || exercises[0].users_id !== users_id) return false;
   return exercises[0];
 }
 
