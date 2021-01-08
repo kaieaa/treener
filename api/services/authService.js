@@ -8,15 +8,12 @@ authService.login = async (email, password) => {
   const user = await usersService.readByEmail(email);
   if (user) {
     const match = await hashService.compare(password, user.password);
-    console.log(password);
-    console.log(user.password);
     if (match) {
       // Generate token
-      const token = jwt.sign({ id: user.id }, config.jwtSecret, { expiresIn: 60 * 60 * 24 });
-      console.log(token);
+      const token = jwt.sign({ email: user.email }, config.jwtSecret, { expiresIn: 60 * 60 * 24 });
       return token;
+      
     } else {
-    //console.log(user);
       return false;
     }
   } else {

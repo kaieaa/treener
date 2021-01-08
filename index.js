@@ -7,20 +7,20 @@ const config = require('./config');
 const port = config.port;
 
 // Import controllers
-const pingController = require('./api/controllers/pingController');
-const usersController = require('./api/controllers/usersController');
-const studentsController = require('./api/controllers/studentsController');
-const exercisesController = require('./api/controllers/exercisesController');
-const authController = require('./api/controllers/authController');
+const pingController = require('./API/controllers/pingController');
+const usersController = require('./API/controllers/usersController');
+const studentsController = require('./API/controllers/studentsController');
+const exercisesController = require('./API/controllers/exercisesController');
+const authController = require('./API/controllers/authController');
 
 // Import logger middleware
-const logger = require('./api/middlewares/logger');
-const isLoggedIn = require('./api/middlewares/isLoggedIn');
-app.use(logger);
+const isLoggedIn = require('./API/middlewares/isLoggedIn');
+const logger = require('./API/middlewares/logger');
 
 // Middleware required for receiving body from request object as JSON.
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
+app.use(logger);
 
 // Routes
 app.get('/api/ping', pingController.ping);
