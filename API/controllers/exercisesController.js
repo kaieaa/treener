@@ -192,7 +192,7 @@ exercisesController.update = async (req, res) => {
 //  Success: status 200 - OK and { success: true } message
 //  Fail: status 400 - Bad Request and error message in response body
 exercisesController.delete = async (req, res) => {
-    const userId = req.user;
+    const userId = 12;//req.user;
   // Check if required data exists
   const id = typeof(parseInt(req.body.id)) === 'number' ? parseInt(req.body.id) : false;
   if(id && userId) {

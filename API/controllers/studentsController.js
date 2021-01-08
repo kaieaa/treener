@@ -1,33 +1,43 @@
 const studentsService = require('../services/studentsService');
 const studentsController = {};
 
-// Endpoint for getting list of available users
-// GET - users
+// Endpoint for getting list of available student per logged in userId
+// GET - students
 // Required values: none
 // Optional values: none
 // Returns: status 200 - OK and list of users in response body
 studentsController.read = async (req, res) => {
-    const users = await studentsService.read();
-    // Return list of users
-    res.status(200).json({
-        success: true,
-        users: users
+    const userId = 12; //req.user;
+    //const userId = typeof(parseInt(req.params.userId)) === 'number' ? parseInt(req.params.userId) : false;
+    if (userId) {
+      // Get list of students
+      const students = await studentsService.read(userId);
+      // Return list of students
+      res.status(200).json({
+          success: true,
+          students
+      });
+    } else {
+      res.status(400).json({
+        success: false
     });
+    }
 }
 
-// Endpoint for getting user specified by id
-// GET - users
-// Required: id
+// Endpoint for getting user specified by id and logged in userId
+// GET - students
+// Required: id, userId
 // Optional: none
 // Returns: status 200 - OK and user data in response body
 studentsController.readById = async (req, res) => {
-    const userId = req.params.id;
-    if (userId) {
-        const user = await studentsService.readById(userId);
+    const userId = 12;//req.user;
+    const id = typeof(parseInt(req.params.id)) === 'number' ? parseInt(req.params.id) : false;
+    if (id) {
+        const student = await studentsService.readById(id, userId);
         // Return user with specified id
         res.status(200).json({
             success: true,
-            user: user
+            student: student
         });
     } else {
         res.status(400).json({
@@ -38,9 +48,9 @@ studentsController.readById = async (req, res) => {
     
 }
 
-// Endpoint for creating new user
-// POST - users
-// Required values: firstName, lastName, email, password
+// Endpoint for creating new student
+// POST - student
+// Required values: firstName, lastName, email, phone, userId
 // Optionalvalues: none
 // Returns:
 //  Success: status 201 - Created and user data in response body
@@ -50,23 +60,24 @@ studentsController.create = async (req, res) => {
     const firstName = typeof(req.body.firstName) === 'string' && req.body.firstName.trim().length > 0 ? req.body.firstName : false;
     const lastName = typeof(req.body.lastName) === 'string' && req.body.lastName.trim().length > 0 ? req.body.lastName : false;
     const email = typeof(req.body.email) === 'string' && req.body.email.trim().length > 0 ? req.body.email : false;
-    const password = typeof(req.body.password) === 'string' && req.body.password.trim().length > 2 ? req.body.password : false;
-
+    const phone = typeof(req.body.phone) === 'string' && req.body.phone.trim().length > 2 ? req.body.phone : false;
+    const userId = typeof(req.body.userId) === 'number' ? req.body.userId : false;
     // Check if required data exists
-    if (firstName && lastName && email && password) {
+    if (firstName && lastName && email && phone) {
         // Create new json with user data
-        const user = {
+        const student = {
             firstName,
             lastName,
             email,
-            password
+            phone,
+            users_id: userId
         };
 
-        const newUser = await studentsService.create(user);
+        const newStudent = await studentsService.create(student);
         // Return data
         res.status(201).json({
             success: true,
-            user: newUser
+            student: newStudent
         });
     } else {
         // Return error message
@@ -78,44 +89,36 @@ studentsController.create = async (req, res) => {
 }
 
 // Endpoint for updating user specified by id
-// PUT - users
+// PUT - students
 // Required: id
-// Optional: firstName, lastName, email, password
+// Optional: firstName, lastName, email, phone
 // Returns:
 //  Success: status 200 - OK and user data in response body
 //  Fail: status 400 - Bad Request and error message in response body
 studentsController.update = async (req, res) => {
-    // Next lines checking if provided data is expected type (typeof) and has length when whitespace is removed (.trim().length)
-    // Ternary operator: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_Operator
     const id = typeof(req.body.id) === 'number' ? req.body.id : false;
-    /* Same as:
-    let id;
-     if (typeof(req.body.id) === 'number') {
-        id = req.body.id
-     } else {
-         id = false;
-     }
-     */
     // Check if required data exists
     if(id || id === 0) {
         const firstName = typeof(req.body.firstName) === 'string' && req.body.firstName.trim().length > 0 ? req.body.firstName : false;
         const lastName = typeof(req.body.lastName) === 'string' && req.body.lastName.trim().length > 0 ? req.body.lastName : false;
         const email = typeof(req.body.email) === 'string' && req.body.email.trim().length > 0 ? req.body.email : false;
-        const password = typeof(req.body.password) === 'string' && req.body.password.trim().length > 3 ? req.body.password : false;
-        
-        const user = {
+        const phone = typeof(req.body.phone) === 'string' && req.body.phone.trim().length > 3 ? req.body.phone : false;
+        const userId = typeof(req.body.userId) === 'number' ? req.body.userId : false;
+
+        const student = {
             id,
             firstName,
             lastName,
             email,
-            password
+            phone,
+            users_id: userId
         };
     
-        const updatedUser = await studentsService.update(user);
+        const updatedStudent = await studentsService.update(student);
             // Return updated user data
             res.status(200).json({
                 success: true,
-                user: updatedUser
+                student: updatedStudent
             });
     }  else {
         // Return error message
@@ -126,8 +129,8 @@ studentsController.update = async (req, res) => {
     }
 }
 
-// Endpoint for deleting user specified by id
-// DELETE - users
+// Endpoint for deleting students specified by id
+// DELETE - students
 // Required: id
 // Optional: none
 // Returns:
