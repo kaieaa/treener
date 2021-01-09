@@ -7,7 +7,7 @@ const exercisesController = {};
 // Optional values: none
 // Returns: status 200 - OK and list of exercises in response body
 exercisesController.read = async (req, res) => {
-  const userId = 12; //req.user;
+  const userId = req.user;
   console.log(userId)
   //const userId = typeof(parseInt(req.params.userId)) === 'number' ? parseInt(req.params.userId) : false;
   if (userId) {
@@ -41,7 +41,7 @@ exercisesController.read = async (req, res) => {
 // Optional: none
 // Returns: status 200 - OK and exercise data in response body
 exercisesController.readById = async (req, res) => {
-  const userId = 12;//req.user;
+  const userId = req.user;
   const id = typeof(parseInt(req.params.id)) === 'number' ? parseInt(req.params.id) : false;
   if (id) {
     const exercise = await exercisesService.readById(id, userId);

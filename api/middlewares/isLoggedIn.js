@@ -4,9 +4,9 @@ const isLoggedIn = async (req, res, next) => {
   try {
     const token = req.headers.authorization ? req.headers.authorization.substring(7) : false;
     const verified = token ? await jwt.verify(token, config.jwtSecret) : false;
-    console.log(verified.email);
+    console.log(verified.ID);
     if (verified) {
-      req.user = verified.email;
+      req.user = verified.ID;
       next();
     } else {
         res.status(401).json({
