@@ -7,7 +7,7 @@ const studentsController = {};
 // Optional values: none
 // Returns: status 200 - OK and list of users in response body
 studentsController.read = async (req, res) => {
-    const userId = 12; //req.user;
+    const userId = req.user;
     //const userId = typeof(parseInt(req.params.userId)) === 'number' ? parseInt(req.params.userId) : false;
     if (userId) {
       // Get list of students
@@ -30,7 +30,7 @@ studentsController.read = async (req, res) => {
 // Optional: none
 // Returns: status 200 - OK and user data in response body
 studentsController.readById = async (req, res) => {
-    const userId = 12;//req.user;
+    const userId = req.user;
     const id = typeof(parseInt(req.params.id)) === 'number' ? parseInt(req.params.id) : false;
     if (id) {
         const student = await studentsService.readById(id, userId);
