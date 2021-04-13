@@ -16,17 +16,17 @@ authController.login = async (req, res) => {
 
   // Check if required data exists
   if (email && password) {
-    const token = await authService.login(email, password);
+    const {token, user} = await authService.login(email, password);
     if (token) {
-      const cookie = req.cookies.trainerSessionCookie;
+      const cookie = req.cookies?.trainerSessionCookie;
     if (!cookie) {
-      res.cookie('trainerSessionCookie',jwt, { maxAge: 900000, httpOnly: true });
+      res.cookie('trainerSessionCookie', token, { maxAge: 900000, httpOnly: true });
     }
-      next();
       // Return data
       res.status(200).json({
         success: true,
-        token: token
+        token: token,
+        user: user
       });
     } else {
       // Return error message

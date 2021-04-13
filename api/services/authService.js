@@ -13,7 +13,7 @@ authService.login = async (email, password) => {
       // Generate token
       const token = jwt.sign({ ID: user.ID }, config.jwtSecret, { expiresIn: 60 * 60 * 24 });
       console.log(token);
-      return token;
+      return {token, user};
       
     } else {
       return false;

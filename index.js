@@ -2,6 +2,7 @@
 const express = require('express');
 // Create express object and put it into app constant
 const app = express();
+var cors = require('cors')
 
 const config = require('./config');
 const port = config.port;
@@ -21,6 +22,13 @@ const logger = require('./API/middlewares/logger');
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(logger);
+const corsOptions = {
+    origin: 'http://localhost:4200',
+    credentials: true,
+    optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+}
+
+app.use(cors(corsOptions));
 
 // Routes
 app.get('/api/ping', pingController.ping);
