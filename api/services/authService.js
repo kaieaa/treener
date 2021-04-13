@@ -8,7 +8,6 @@ authService.login = async (email, password) => {
   const user = await usersService.readByEmail(email);
   if (user) {
     const match = await hashService.compare(password, user.password);
-    console.log(user);
     console.log(user.ID);
     if (match) {
       // Generate token

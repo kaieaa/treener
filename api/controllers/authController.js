@@ -18,6 +18,11 @@ authController.login = async (req, res) => {
   if (email && password) {
     const token = await authService.login(email, password);
     if (token) {
+      const cookie = req.cookies.trainerSessionCookie;
+    if (!cookie) {
+      res.cookie('trainerSessionCookie',jwt, { maxAge: 900000, httpOnly: true });
+    }
+      next();
       // Return data
       res.status(200).json({
         success: true,
