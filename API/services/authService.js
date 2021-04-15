@@ -1,7 +1,7 @@
-const hashService = require('./hashService');
-const usersService = require('./usersService');
-const jwt = require('jsonwebtoken');
-const config = require('../../config');
+const hashService = require("./hashService");
+const usersService = require("./usersService");
+const jwt = require("jsonwebtoken");
+const config = require("../../config");
 const authService = {};
 
 authService.login = async (email, password) => {
@@ -11,16 +11,17 @@ authService.login = async (email, password) => {
     console.log(user.ID);
     if (match) {
       // Generate token
-      const token = jwt.sign({ ID: user.ID }, config.jwtSecret, { expiresIn: 60 * 60 * 24 });
+      const token = jwt.sign({ ID: user.ID }, config.jwtSecret, {
+        expiresIn: 60 * 60 * 24,
+      });
       console.log(token);
       return token;
-      
     } else {
       return false;
     }
   } else {
     return false;
   }
-}
+};
 
 module.exports = authService;

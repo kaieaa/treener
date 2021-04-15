@@ -9,9 +9,11 @@ authController.getSession = async (req, res) => {
   const token = cookie?.value;
   if (!token) {
     res.status(200);
+    console.log(user);
   } else {
     const user = await jwt.verify(token, config.jwtSecret);
     res.status(200).json(user);
+    console.log(user);
   }
 }
 
@@ -31,11 +33,10 @@ authController.login = async (req, res) => {
   if (email && password) {
     const token = await authService.login(email, password);
     if (token) {
-      const cookie = req.cookies.trainerSessionCookie;
+      const cookie = req.cookies?.trainerSessionCookie;
     if (!cookie) {
       res.cookie('trainerSessionCookie',jwt, { maxAge: 900000, httpOnly: true });
     }
-      next();
       // Return data
       res.status(200).json({
         success: true,
