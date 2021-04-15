@@ -6,7 +6,7 @@ const authController = {};
 
 authController.getSession = async (req, res) => {
   const cookie = req.cookies?.trainerSessionCookie; // saa cookie küljest JWT kätte
-  const token = cookie.value;
+  const token = cookie?.value;
   if (!token) {
     res.status(200);
   } else {
