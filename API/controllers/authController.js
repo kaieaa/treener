@@ -1,6 +1,19 @@
 const authService = require('../services/authService');
+const jwt = require('jsonwebtoken');
+const config = require('../../config');
 
 const authController = {};
+
+authController.getSession = async (req, res) => {
+  const cookie = req.cookies?.trainerSessionCookie; // saa cookie küljest JWT kätte..
+  const token = cookie.value; // ma ei tea kas toimib, ei saa proovida, topi debugger v logi välja vt mis tuleb
+  if (!token) {
+    res.status(200);
+  } else {
+    const user = await jwt.verify(token, config.jwtSecret);
+    res.status(200).json(user);
+  }
+}
 
 // Endpoint for logging in
 // POST - login
