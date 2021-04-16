@@ -3,7 +3,8 @@ const config = require("../../config");
 const isLoggedIn = async (req, res, next) => {
   try {
     //const token = req.headers.authorization ? req.headers.authorization.substring(7) : false;
-    const token = req.cookies?.trainerSessionCookie;
+    const token = req.cookies['trainerSessionCookie'];
+    //const token = req.cookies?.trainerSessionCookie;
     const verified = token ? await jwt.verify(token, config.jwtSecret) : false;
     console.log(verified.ID);
     if (verified) {

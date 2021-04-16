@@ -2,6 +2,7 @@
 const express = require("express");
 // Create express object and put it into app constant
 const app = express();
+const cookieParser = require('cookie-parser');
 var cors = require("cors");
 
 const config = require("./config");
@@ -22,6 +23,7 @@ const logger = require("./API/middlewares/logger");
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(logger);
+app.use(cookieParser());
 const corsOptions = {
   origin: "http://localhost:4200",
   credentials: true,

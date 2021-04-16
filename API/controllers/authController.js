@@ -5,9 +5,18 @@ const config = require('../../config');
 const authController = {};
 
 authController.getSession = async (req, res) => {
-  const cookie = req.cookies?.trainerSessionCookie; // saa cookie küljest JWT kätte
-  const token = cookie?.value;
+  const token = req.cookies['trainerSessionCookie'];
+  //const cookie = req.cookies?.trainerSessionCookie; // saa cookie küljest JWT kätte
+  //const token = cookie?.value;
+  console.log('cookie sessioni asjas: ' + cookie);
+  console.log('value sessioni asjas: ' + token);
   if (!token) {
+    /* res.cookie('trainerSessionCookie', '', { //Commenti hiljem sisse kui session toimib, eemaldab cookie kui aktiivne pole enam
+      httpOnly: true,
+      secure: true,
+      sameSite: "none",
+      expires: 0
+    }); */
     res.status(200);
     console.log(user);
   } else {
@@ -26,17 +35,25 @@ authController.getSession = async (req, res) => {
 //  Fail: status 401 - Not authorized
 //  Fail: status 400 - Required field(s) missing or invalid
 authController.login = async (req, res) => {
-  const email = typeof(req.body.email) === 'string' && req.body.email.trim().length > 0 ? req.body.email : false;
-  const password = typeof(req.body.password) === 'string' && req.body.password.trim().length > 2 ? req.body.password : false;
+  const email = typeof (req.body.email) === 'string' && req.body.email.trim().length > 0 ? req.body.email : false;
+  const password = typeof (req.body.password) === 'string' && req.body.password.trim().length > 2 ? req.body.password : false;
 
   // Check if required data exists
   if (email && password) {
     const token = await authService.login(email, password);
     if (token) {
       const cookie = req.cookies?.trainerSessionCookie;
-    if (!cookie) {
-      res.cookie('trainerSessionCookie',jwt, { maxAge: 900000, httpOnly: true });
-    }
+      if (!cookie) {
+        const expires = new Date();
+        expires.setDate(expires.getDate() + 1);
+        res.cookie('trainerSessionCookie', token, {
+          httpOnly: true,
+          secure: true,
+          sameSite: "none",
+          expires
+          //expires: new Date().setDate(new Date().getDate() + 1)
+        });
+      }
       // Return data
       res.status(200).json({
         success: true,
@@ -46,15 +63,15 @@ authController.login = async (req, res) => {
       // Return error message
       res.status(401).json({
         success: false,
-        message: 'Check Your credentials'
+        message: 'Check your credentials'
       });
     }
   } else {
-      // Return error message
-      res.status(400).json({
-          success: false,
-          message: 'Required field(s) missing or invalid'
-      });
+    // Return error message
+    res.status(400).json({
+      success: false,
+      message: 'Required field(s) missing or invalid'
+    });
   }
 }
 
