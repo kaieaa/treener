@@ -9,6 +9,13 @@ studentsService.read = async () => {
   return users;
 }
 
+/* Igaks juhuks hoian alles:
+studentsService.read = async () => {
+  const users = await db.query(`SELECT * FROM student`);
+  console.log(users);
+  return users;
+}*/
+
 // Return user by id
 studentsService.readById = async (id) => {
   const users = await db.query(`SELECT * FROM student WHERE id = ?`, [id]);
