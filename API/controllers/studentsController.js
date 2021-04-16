@@ -7,11 +7,11 @@ const studentsController = {};
 // Optional values: none
 // Returns: status 200 - OK and list of users in response body
 studentsController.read = async (req, res) => {
-    const userId = req.user;
+    const users_ID = req.user;
     //const userId = typeof(parseInt(req.params.userId)) === 'number' ? parseInt(req.params.userId) : false;
-    if (userId) {
+    if (users_ID) {
       // Get list of students
-      const students = await studentsService.read(userId);
+      const students = await studentsService.read(users_ID);
       // Return list of students
       res.status(200).json({
           success: true,
@@ -19,7 +19,8 @@ studentsController.read = async (req, res) => {
       });
     } else {
       res.status(400).json({
-        success: false
+        success: false,
+        message: 'No id provided'
     });
     }
 }
@@ -61,7 +62,7 @@ studentsController.create = async (req, res) => {
     const lastName = typeof(req.body.lastName) === 'string' && req.body.lastName.trim().length > 0 ? req.body.lastName : false;
     const email = typeof(req.body.email) === 'string' && req.body.email.trim().length > 0 ? req.body.email : false;
     const phone = typeof(req.body.phone) === 'string' && req.body.phone.trim().length > 2 ? req.body.phone : false;
-    const userId = typeof(req.body.userId) === 'number' ? req.body.userId : false;
+    const userId = req.user; //typeof(req.body.userId) === 'number' ? req.body.userId : false;
     // Check if required data exists
     if (firstName && lastName && email && phone) {
         // Create new json with user data
@@ -70,7 +71,7 @@ studentsController.create = async (req, res) => {
             lastName,
             email,
             phone,
-            users_id: userId
+            users_ID: userId
         };
 
         const newStudent = await studentsService.create(student);
@@ -111,7 +112,7 @@ studentsController.update = async (req, res) => {
             lastName,
             email,
             phone,
-            users_id: userId
+            users_ID: userId
         };
     
         const updatedStudent = await studentsService.update(student);

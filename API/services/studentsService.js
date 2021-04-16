@@ -3,10 +3,10 @@ const db = require('../../db');
 
 studentsService = {};
 
-studentsService.read = async () => {
-  const users = await db.query(`SELECT * FROM student`);
-  console.log(users);
-  return users;
+studentsService.read = async (users_ID) => {
+  const students = await db.query(`SELECT * FROM student WHERE users_id = ?`, [users_ID]);
+  console.log(students);
+  return students;
 }
 
 /* Igaks juhuks hoian alles:
@@ -18,8 +18,8 @@ studentsService.read = async () => {
 
 // Return user by id
 studentsService.readById = async (id) => {
-  const users = await db.query(`SELECT * FROM student WHERE id = ?`, [id]);
-  return users[0];
+  const students = await db.query(`SELECT * FROM student WHERE id = ?`, [id]);
+  return students[0];
 }
 
 // Create student
