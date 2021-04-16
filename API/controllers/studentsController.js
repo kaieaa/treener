@@ -76,9 +76,9 @@ studentsController.create = async (req, res) => {
 
         const newStudent = await studentsService.create(student);
         // Return data
-        res.status(201).json({
+        res.status(200).json({
             success: true,
-            student: newStudent
+            student: {...student, ID: newStudent}
         });
     } else {
         // Return error message
