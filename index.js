@@ -58,7 +58,7 @@ app.get("/api/exercises", exercisesController.read);
 app.get("/api/exercises/:id", exercisesController.readById);
 app.post("/api/exercises", exercisesController.create);
 app.put("/api/exercises", exercisesController.update);
-app.delete("/api/exercises", exercisesController.delete);
+app.delete("/api/exercises/:id", exercisesController.delete);
 
 app.listen(3000, () => {
   console.log("Server running");
