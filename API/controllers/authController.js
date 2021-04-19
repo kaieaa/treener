@@ -16,7 +16,7 @@ authController.getSession = async (req, res) => {
         httpOnly: true,
         secure: true,
         sameSite: "none",
-        expires: 0,
+        expires: new Date(0),
       })
       .status(200)
       .json({});
