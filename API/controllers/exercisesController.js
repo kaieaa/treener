@@ -243,14 +243,14 @@ exercisesController.update = async (req, res) => {
 exercisesController.delete = async (req, res) => {
   //const userId = req.user;
   // Check if required data exists
-  const id = typeof req.body.id === "number" ? req.body.id : false;
-  console.log(req.body.id);
+  const id = req.params.id;
   if (id) {
     const result = await exercisesService.delete(id);
     if (result) {
       // Return success message
       res.status(200).json({
-        success: result,
+        success: true,
+        exercise: {...result, ID: result}
       });
     } else {
       res.status(400).json({
@@ -264,7 +264,6 @@ exercisesController.delete = async (req, res) => {
       success: false,
       message: "Required field(s) missing or invalid",
     });
-    console.log(id);
   }
 };
 

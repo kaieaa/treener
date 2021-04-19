@@ -50,7 +50,7 @@ studentsService.delete = async (id) => {
   if (result.affectedRows === 0) {
     return false;
   }
-  return true;
+  return result.deletedId;
 }
 
 module.exports = studentsService;

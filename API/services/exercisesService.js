@@ -29,6 +29,7 @@ exercisesService.create = async (exercise) => {
 exercisesService.delete = async (id) => {
   const result = await db.query(`DELETE FROM exercises WHERE id = ?`, [id]);
   if (result.affectedRows === 0) return false;
+  return result.deletedId;
 };
 
 module.exports = exercisesService;

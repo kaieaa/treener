@@ -84,38 +84,14 @@ authController.login = async (req, res) => {
 
 
 authController.logout = async (req, res) => {
-  console.log('authController' + req.user)
-  const user = req.user;
-  console.log('authController user' + user)
-  // Check if required data exists
-  if (user) {
-      const cookie = req.cookies?.trainerSessionCookie;
-      console.log('cookie: ' + cookie)
-      if (cookie) {
-        const token = null;
-        console.log('token: ' +token)
-        const expires = new Date();
-        expires.setDate(expires.getDate());
-        res.cookie("trainerSessionCookie", token, {
-          httpOnly: true,
-          secure: true,
-          sameSite: "none",
-          expires,
-          //expires: new Date().setDate(new Date().getDate() + 1)
-        });
-      }
-      // Return data
-      res.status(200).json({
-        success: true,
-        token: token,
-      });
-  } else {
-    // Return error message
-    res.status(400).json({
-      success: false,
-      message: "Required field(s) missing or invalid",
-    });
-  }
+  res.cookie("trainerSessionCookie", '', {
+    httpOnly: true,
+    secure: true,
+    sameSite: "none",
+    expires: new Date(0)
+  })
+    .status(200)
+    .json({user: null});
 };
 
 module.exports = authController;

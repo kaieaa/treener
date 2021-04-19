@@ -36,7 +36,7 @@ app.use(cors(corsOptions));
 app.get("/api/ping", pingController.ping);
 app.post("/api/login", authController.login);
 app.get("/api/logout", authController.logout);
-//app.get("/api/session", authController.getSession);
+app.get("/api/session", authController.getSession);
 app.post("/api/users", usersController.create);
 app.get("/api/users", usersController.read); //Tõstan välja loggedIn nõudest
 
@@ -44,7 +44,7 @@ app.use(isLoggedIn);
 
 //app.get('/api/users', usersController.read);
 app.get("/api/users/:id", usersController.readById);
-app.get("/api/session", authController.getSession);
+//app.get("/api/session", authController.getSession);
 //app.post('/api/users', usersController.create);
 app.put("/api/users", usersController.update);
 app.delete("/api/users", usersController.delete);
