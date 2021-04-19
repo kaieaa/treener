@@ -35,6 +35,7 @@ app.use(cors(corsOptions));
 // Routes
 app.get("/api/ping", pingController.ping);
 app.post("/api/login", authController.login);
+app.get("/api/logout", authController.logout);
 //app.get("/api/session", authController.getSession);
 app.post("/api/users", usersController.create);
 app.get("/api/users", usersController.read); //Tõstan välja loggedIn nõudest
@@ -52,7 +53,7 @@ app.get("/api/students", studentsController.read);
 app.get("/api/students/:id", studentsController.readById);
 app.post("/api/students", studentsController.create);
 app.put("/api/students", studentsController.update);
-app.delete("/api/students", studentsController.delete);
+app.delete("/api/students/:id", studentsController.delete);
 
 app.get("/api/exercises", exercisesController.read);
 app.get("/api/exercises/:id", exercisesController.readById);

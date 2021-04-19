@@ -9,7 +9,7 @@ authController.getSession = async (req, res) => {
   //const cookie = req.cookies?.trainerSessionCookie; // saa cookie küljest JWT kätte
   //const token = cookie?.value;
   //console.log('cookie sessioni asjas: ' + cookie);
-  console.log("value sessioni asjas: " + token);
+  console.log("value sessionis: " + token);
   if (!token) {
     res
       .cookie("trainerSessionCookie", "", {
@@ -73,6 +73,42 @@ authController.login = async (req, res) => {
         message: "Check your credentials",
       });
     }
+  } else {
+    // Return error message
+    res.status(400).json({
+      success: false,
+      message: "Required field(s) missing or invalid",
+    });
+  }
+};
+
+
+authController.logout = async (req, res) => {
+  console.log('authController' + req.user)
+  const user = req.user;
+  console.log('authController user' + user)
+  // Check if required data exists
+  if (user) {
+      const cookie = req.cookies?.trainerSessionCookie;
+      console.log('cookie: ' + cookie)
+      if (cookie) {
+        const token = null;
+        console.log('token: ' +token)
+        const expires = new Date();
+        expires.setDate(expires.getDate());
+        res.cookie("trainerSessionCookie", token, {
+          httpOnly: true,
+          secure: true,
+          sameSite: "none",
+          expires,
+          //expires: new Date().setDate(new Date().getDate() + 1)
+        });
+      }
+      // Return data
+      res.status(200).json({
+        success: true,
+        token: token,
+      });
   } else {
     // Return error message
     res.status(400).json({
