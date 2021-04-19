@@ -25,7 +25,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(logger);
 app.use(cookieParser());
 const corsOptions = {
-  origin: "http://localhost:4200",
+  origin: "http://135.181.100.118:3000",
   credentials: true,
   optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
 };
