@@ -241,23 +241,15 @@ exercisesController.update = async (req, res) => {
 //  Success: status 200 - OK and { success: true } message
 //  Fail: status 400 - Bad Request and error message in response body
 exercisesController.delete = async (req, res) => {
-  //const userId = req.user;
   // Check if required data exists
   const id = req.params.id;
-  if (id) {
+  if (id || id === 0) {
     const result = await exercisesService.delete(id);
-    if (result) {
       // Return success message
       res.status(200).json({
         success: true,
         exercise: {...result, ID: result}
       });
-    } else {
-      res.status(400).json({
-        success: false,
-        message: "No exercise found.",
-      });
-    }
   } else {
     // Return error message
     res.status(400).json({

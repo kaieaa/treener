@@ -139,8 +139,8 @@ studentsController.update = async (req, res) => {
 //  Fail: status 400 - Bad Request and error message in response body
 studentsController.delete = async (req, res) => {
     // Check if required data exists
-    //console.log('student req.body.id from front-end ' + req.params.id);
-    const id = req.params.id//typeof(req.body.id) === 'number' ? req.body.id : false;
+    //console.log('student req.params.id from front-end ' + req.params.id);
+    const id = req.params.id
     //console.log('student id ' + id);
     if(id || id === 0) {
         const result = await studentsService.delete(id);
