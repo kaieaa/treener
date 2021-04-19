@@ -1,4 +1,6 @@
-# treener
+# Personaaltreeneri haldusrakenduse back-end
+
+- Tegemist on personaaltreeneri rakenduse rakendusliidese API koodi repositooriumiga
 
 Rakendus on loodud eratreenerite ja terapeutide igapäevatöö lihtsustamiseks. Rakendus võimaldab harjutuste ja klientide info salvestamist, muutmist ja kasutamist ning peaks olema kättesaadav nii veebis kui ka mobiilirakendusena. Rakendus on mõeldud universaalseks kasutamiseks erinevate spordi- ja erialade treeneritele ning võimaldab andmeid sisestada paindlikult, nii nagu kirjutaks käsitsi paberile ja märkmikusse, kuid lihtsustab andmete organiseerimist ja järjestamist selliselt, nagu pabermärkmik seda ei võimalda.
 
