@@ -14,6 +14,9 @@ const usersController = require("./API/controllers/usersController");
 const studentsController = require("./API/controllers/studentsController");
 const exercisesController = require("./API/controllers/exercisesController");
 const authController = require("./API/controllers/authController");
+const trainingsController = require("./API/controllers/trainingsController");
+const trainingplansController = require("./API/controllers/trainingplansController");
+
 
 // Import logger middleware
 const isLoggedIn = require("./API/middlewares/isLoggedIn");

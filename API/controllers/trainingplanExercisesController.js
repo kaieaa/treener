@@ -1,21 +1,21 @@
-const trainingplansService = require('../services/trainingplansService');
-const trainingplansController = {};
+const trainingplanExercisesService = require('../services/trainingplanExercisesService');
+const trainingplanExercisesController = {};
 
 // Endpoint for getting list of available trainingplan per logged in userId
-// GET - trainingplans
+// GET - trainingplanExercises
 // Required values: none
 // Optional values: none
-// Returns: status 200 - OK and list of trainingplans in response body
-trainingplansController.read = async (req, res) => {
+// Returns: status 200 - OK and list of trainingplanExercises in response body
+trainingplanExercisesController.read = async (req, res) => {
     const users_ID = req.user;
     //const userId = typeof(parseInt(req.params.userId)) === 'number' ? parseInt(req.params.userId) : false;
     if (users_ID) {
-      // Get list of trainingplans
-      const trainingplans = await trainingplansService.read(users_ID);
-      // Return list of trainingplans
+      // Get list of trainingplanExercises
+      const trainingplanExercises = await trainingplanExercisesService.read(users_ID);
+      // Return list of trainingplanExercises
       res.status(200).json({
           success: true,
-          trainingplans
+          trainingplanExercises
       });
     } else {
       res.status(400).json({
@@ -26,15 +26,15 @@ trainingplansController.read = async (req, res) => {
 }
 
 // Endpoint for getting user specified by id and logged in userId
-// GET - trainingplans
+// GET - trainingplanExercises
 // Required: id, userId
 // Optional: none
 // Returns: status 200 - OK and user data in response body
-trainingplansController.readById = async (req, res) => {
+trainingplanExercisesController.readById = async (req, res) => {
     const userId = req.user;
     const id = typeof(parseInt(req.params.id)) === 'number' ? parseInt(req.params.id) : false;
     if (id) {
-        const trainingplan = await trainingplansService.readById(id, userId);
+        const trainingplan = await trainingplanExercisesService.readById(id, userId);
         // Return user with specified id
         res.status(200).json({
             success: true,
@@ -50,19 +50,19 @@ trainingplansController.readById = async (req, res) => {
 }
 
 // Endpoint for getting user specified by id and logged in userId
-// GET - trainingplans
+// GET - trainingplanExercises
 // Required: id, userId
 // Optional: none
 // Returns: status 200 - OK and user data in response body
-trainingplansController.readByStudent = async (req, res) => {
+trainingplanExercisesController.readByStudent = async (req, res) => {
     const student_ID = typeof(parseInt(req.params.student_ID)) === 'number' ? parseInt(req.params.student_ID) : false;
     //const id = typeof(parseInt(req.params.id)) === 'number' ? parseInt(req.params.id) : false;
     if (student_ID) {
-        const trainingplans = await trainingplansService.readById(student_ID);
+        const trainingplanExercises = await trainingplanExercisesService.readById(student_ID);
         // Return trainingplan with specified student id
         res.status(200).json({
             success: true,
-            trainingplans
+            trainingplanExercises
         });
     } else {
         res.status(400).json({
@@ -80,7 +80,7 @@ trainingplansController.readByStudent = async (req, res) => {
 // Returns:
 //  Success: status 201 - Created and user data in response body
 //  Fail: status 400 - Bad Request and error message in response body
-trainingplansController.create = async (req, res) => {
+trainingplanExercisesController.create = async (req, res) => {
     // Check if provided data is expected type (typeof) and has length when whitespace is removed (.trim().length)
     const name = typeof(req.body.name) === 'string' && req.body.name.trim().length > 0 ? req.body.name : false;
     const date = typeof(req.body.date) === 'string' && req.body.date.trim().length > 0 ? req.body.date : false;
@@ -96,7 +96,7 @@ trainingplansController.create = async (req, res) => {
             student_ID
         };
 
-        const newTrainingplan = await trainingplansService.create(trainingplan);
+        const newTrainingplan = await trainingplanExercisesService.create(trainingplan);
         // Return data
         res.status(200).json({
             success: true,
@@ -112,13 +112,13 @@ trainingplansController.create = async (req, res) => {
 }
 
 // Endpoint for updating user specified by id
-// PUT - trainingplans
+// PUT - trainingplanExercises
 // Required: id
 // Optional: firstName, lastName, email, phone
 // Returns:
 //  Success: status 200 - OK and user data in response body
 //  Fail: status 400 - Bad Request and error message in response body
-trainingplansController.update = async (req, res) => {
+trainingplanExercisesController.update = async (req, res) => {
     const id = typeof(req.body.id) === 'number' ? req.body.id : false;
     // Check if required data exists
     if(id || id === 0) {
@@ -137,7 +137,7 @@ trainingplansController.update = async (req, res) => {
             users_ID: userId
         };
     
-        const updatedtrainingplan = await trainingplansService.update(trainingplan);
+        const updatedtrainingplan = await trainingplanExercisesService.update(trainingplan);
             // Return updated user data
             res.status(200).json({
                 success: true,
@@ -152,20 +152,20 @@ trainingplansController.update = async (req, res) => {
     }
 }
 
-// Endpoint for deleting trainingplans specified by id
-// DELETE - trainingplans
+// Endpoint for deleting trainingplanExercises specified by id
+// DELETE - trainingplanExercises
 // Required: id
 // Optional: none
 // Returns:
 //  Success: status 200 - OK and { success: true } message
 //  Fail: status 400 - Bad Request and error message in response body
-trainingplansController.delete = async (req, res) => {
+trainingplanExercisesController.delete = async (req, res) => {
     // Check if required data exists
     //console.log('trainingplan req.params.id from front-end ' + req.params.id);
     const id = req.params.id
     //console.log('trainingplan id ' + id);
     if(id || id === 0) {
-        const result = await trainingplansService.delete(id);
+        const result = await trainingplanExercisesService.delete(id);
         // Return success message
         res.status(200).json({
             success: true,
@@ -180,4 +180,4 @@ trainingplansController.delete = async (req, res) => {
     }
 }
 
-module.exports = trainingplansController;
+module.exports = trainingplanExercisesController;

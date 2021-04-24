@@ -4,7 +4,7 @@ trainingplansService = {};
 
 trainingplansService.read = async (users_ID) => {
   const trainingplans = await db.query(
-    `SELECT * FROM trainingPlan tp 
+    `SELECT tp.* FROM trainingplan tp 
     INNER JOIN student s ON s.ID = tp.student_ID 
     INNER JOIN users u ON u.ID = s.users_ID
     WHERE s.users_ID = ?`,
@@ -32,12 +32,12 @@ trainingplansService.readById = async (id) => {
 
 // Return trainingplan by student_ID
 trainingplansService.readByStudent = async (student_ID) => {
-    const trainingplans = await db.query(
-      `SELECT * FROM trainingplan WHERE student_ID = ?`,
-      [student_ID]
-    );
-    return trainingplans[0];
-  };
+  const trainingplans = await db.query(
+    `SELECT * FROM trainingplan WHERE student_ID = ?`,
+    [student_ID]
+  );
+  return trainingplans;
+};
 
 // Create trainingplan
 trainingplansService.create = async (trainingplan) => {
