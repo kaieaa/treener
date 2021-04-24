@@ -61,6 +61,12 @@ app.post("/api/exercises", exercisesController.create);
 app.put("/api/exercises", exercisesController.update);
 app.delete("/api/exercises/:id", exercisesController.delete);
 
+app.get("/api/trainingplans", trainingplansController.read);
+app.get("/api/trainingplans/:id", trainingplansController.readById);
+app.post("/api/trainingplans", trainingplansController.create);
+app.put("/api/trainingplans", trainingplansController.update);
+app.delete("/api/trainingplans/:id", trainingplansController.delete);
+
 app.listen(3000, () => {
   console.log("Server running");
 });
