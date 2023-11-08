@@ -1,6 +1,6 @@
 {
   "name": "nodemon",
-  "version": "1.0.0",
+  "version": "3.0.1",
   "description": "Rakendus on loodud eratreenerite ja terapeutide igapäevatöö lihtsustamiseks. Rakendus võimaldab harjutuste ja klientide info salvestamist, muutmist ja kasutamist ning peaks olema kättesaadav nii veebis kui ka mobiilirakendusena. Rakendus on mõeldud universaalseks kasutamiseks erinevate spordi- ja erialade treeneritele ning võimaldab andmeid sisestada paindlikult, nii nagu kirjutaks käsitsi paberile ja märkmikusse, kuid lihtsustab andmete organiseerimist ja järjestamist selliselt, nagu pabermärkmik seda ei võimalda.",
   "main": "index.js",
   "scripts": {
@@ -18,14 +18,14 @@
   },
   "homepage": "https://github.com/kaieaa/treener#readme",
   "dependencies": {
-    "bcrypt": "^5.0.0",
+    "bcrypt": "^5.1.1",
     "cors": "^2.8.5",
-    "express": "^4.17.1",
-    "jsonwebtoken": "^8.5.1",
-    "mysql2": "^2.2.5"
+    "express": "^4.18.1",
+    "jsonwebtoken": "^9.0.2",
+    "mysql2": "^2.3.3"
   },
   "devDependencies": {
     "cookie-parser": "^1.4.5",
-    "nodemon": "^2.0.6"
+    "nodemon": "^2.0.22"
   }
 }
